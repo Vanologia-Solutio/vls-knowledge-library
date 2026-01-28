@@ -10,4 +10,5 @@ export interface UploadDocument {
   amount: number
   issued_date: Date
   due_date: Date
+  remark: string
 }

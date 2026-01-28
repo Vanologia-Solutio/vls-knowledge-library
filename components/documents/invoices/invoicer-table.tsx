@@ -24,6 +24,7 @@ export function InvoicerTable({ data }: { data: UploadDocument[] }) {
                 ? dayjs(document.due_date).format('D MMMM YYYY')
                 : 'N/A'}
             </p>
+            <p className='line-clamp-2'>{document.remark}</p>
             <DocumentViewer path={document.file_path} />
           </div>
         ))

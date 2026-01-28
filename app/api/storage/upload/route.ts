@@ -23,7 +23,8 @@ export async function POST(req: Request) {
     const amount = formData.get('amount') as string
     const issuedDate = formData.get('issuedDate') as string
     const dueDate = formData.get('dueDate') as string
-
+    const remark = formData.get('remark') as string
+    
     if (!file || !type) {
       return NextResponse.json(generateErrorResponse('Invalid form data'))
     }
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
       amount: parseInt(amount),
       issued_date: issuedDate ? new Date(issuedDate) : null,
       due_date: dueDate ? new Date(dueDate) : null,
+      remark: remark,
     })
     if (error) {
       return NextResponse.json(generateErrorResponse(error.message))

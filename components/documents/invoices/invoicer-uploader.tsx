@@ -15,6 +15,7 @@ import {
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textarea'
 import { documentQueries } from '@/hooks/use-documents'
 import { Loader2, UploadCloud } from 'lucide-react'
 import { ChangeEvent, SubmitEvent, useState } from 'react'
@@ -72,7 +73,7 @@ export function InvoicerUploader() {
           Upload Invoice
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='min-w-3xl'>
         <DialogHeader>
           <DialogTitle>Invoicer Uploader</DialogTitle>
           <DialogDescription>
@@ -81,55 +82,59 @@ export function InvoicerUploader() {
         </DialogHeader>
         <form onSubmit={handleUpload}>
           <FieldGroup>
-            <Field>
-              <FieldLabel>Attachment</FieldLabel>
-              <div className='flex items-center gap-2'>
+            <div className='grid grid-cols-2 gap-5'>
+              <Field>
+                <FieldLabel>Invoice Number</FieldLabel>
                 <Input
                   disabled={isPending}
-                  type='file'
-                  name='attachment'
-                  accept='.pdf'
+                  type='text'
+                  name='invoiceNo'
+                  placeholder='INV-2026-001'
                   required
-                  onChange={handleFileChange}
                 />
-                <DocumentViewer
-                  path={fileUrl ?? ''}
-                  states={{
-                    uploadPreview: true,
-                    disableEyeButton: !fileUrl || isPending,
-                  }}
+              </Field>
+              <Field>
+                <FieldLabel>Attachment</FieldLabel>
+                <div className='flex items-center gap-2'>
+                  <Input
+                    disabled={isPending}
+                    type='file'
+                    name='attachment'
+                    accept='.pdf'
+                    required
+                    onChange={handleFileChange}
+                  />
+                  <DocumentViewer
+                    path={fileUrl ?? ''}
+                    states={{
+                      uploadPreview: true,
+                      disableEyeButton: !fileUrl || isPending,
+                    }}
+                  />
+                </div>
+              </Field>
+            </div>
+            <div className='grid grid-cols-2 gap-5'>
+              <Field>
+                <FieldLabel>Client Name</FieldLabel>
+                <Input
+                  disabled={isPending}
+                  type='text'
+                  name='clientName'
+                  placeholder='John Doe'
+                  required
                 />
-              </div>
-            </Field>
-            <Field>
-              <FieldLabel>Invoice Number</FieldLabel>
-              <Input
-                disabled={isPending}
-                type='text'
-                name='invoiceNo'
-                placeholder='INV-2026-001'
-                required
-              />
-            </Field>
-            <Field>
-              <FieldLabel>Client Name</FieldLabel>
-              <Input
-                disabled={isPending}
-                type='text'
-                name='clientName'
-                placeholder='John Doe'
-                required
-              />
-            </Field>
-            <Field>
-              <FieldLabel>Amount (IDR)</FieldLabel>
-              <Input
-                disabled={isPending}
-                type='number'
-                name='amount'
-                placeholder='1000000'
-              />
-            </Field>
+              </Field>
+              <Field>
+                <FieldLabel>Amount (IDR)</FieldLabel>
+                <Input
+                  disabled={isPending}
+                  type='number'
+                  name='amount'
+                  placeholder='1000000'
+                />
+              </Field>
+            </div>
             <div className='grid grid-cols-2 gap-6'>
               <Field>
                 <FieldLabel>Issued Date</FieldLabel>
@@ -145,6 +150,15 @@ export function InvoicerUploader() {
                 <Input disabled={isPending} type='date' name='dueDate' />
               </Field>
             </div>
+            <Field>
+              <FieldLabel>Remark</FieldLabel>
+              <Textarea
+                disabled={isPending}
+                rows={2}
+                name='remark'
+                placeholder='Remark'
+              />
+            </Field>
           </FieldGroup>
           <Separator className='my-6' />
           <DialogFooter className='mt-4'>
