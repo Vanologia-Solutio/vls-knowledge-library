@@ -14,8 +14,8 @@ function LoginContent() {
       toast.error('Your session has expired. Please log in again.', { duration: 3000 })
     }
 
-    if (reason === 'unauthorized') {
-      toast.error('Your account is not authorized to access this system.', { duration: 3000 })
+    if (reason === 'not_authorized') {
+      toast.error('You are not authorized to access this system.', { duration: 3000 })
     }
   }, [searchParams])
 

@@ -22,14 +22,19 @@ export async function proxy(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data: { user }, error } = await supabase.auth.getUser()
+  console.log(error)
   if (!user) {
-    return NextResponse.redirect(new URL('/login?reason=session_expired', request.url))
+    if (error?.message.includes('expired')) {
+      return NextResponse.redirect(new URL('/login?reason=session_expired', request.url))
+    } else {
+      return NextResponse.redirect(new URL('/login?reason=not_logged_in', request.url))
+    }
   }
 
   const { data: profile } = await supabase.from('profiles').select('*').eq('email', user.email).single()
   if (!profile || !profile.is_active) {
-    return NextResponse.redirect(new URL('/login?reason=unauthorized', request.url))
+    return NextResponse.redirect(new URL('/login?reason=not_authorized', request.url))
   }
 
   return response
