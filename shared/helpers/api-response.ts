@@ -1,10 +1,13 @@
-type ApiResponse<T> = {
-  data: T;
-  success: boolean;
-  message: string;
+export type ApiResponse<T> = {
+  data: T
+  success: boolean
+  message: string
 }
 
-export function generateSuccessApiResponse<T>(data: T, message: string = 'Operation successful'): ApiResponse<T> {
+export function generateSuccessResponse<T>(
+  data: T,
+  message: string = 'Operation successful',
+): ApiResponse<T> {
   return {
     data,
     message,
@@ -12,7 +15,9 @@ export function generateSuccessApiResponse<T>(data: T, message: string = 'Operat
   }
 }
 
-export function generateErrorApiResponse(message: string = 'Operation failed'): ApiResponse<null> {
+export function generateErrorResponse(
+  message: string = 'Operation failed',
+): ApiResponse<null> {
   return {
     data: null,
     message,

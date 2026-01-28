@@ -19,22 +19,32 @@ export async function proxy(request: NextRequest) {
           })
         },
       },
-    }
+    },
   )
 
-  const { data: { user }, error } = await supabase.auth.getUser()
-  console.log(error)
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
   if (!user) {
     if (error?.message.includes('expired')) {
-      return NextResponse.redirect(new URL('/login?reason=session_expired', request.url))
+      return NextResponse.redirect(
+        new URL('/login?reason=session_expired', request.url),
+      )
     } else {
-      return NextResponse.redirect(new URL('/login?reason=not_logged_in', request.url))
+      return NextResponse.redirect(new URL('/login', request.url))
     }
   }
 
-  const { data: profile } = await supabase.from('profiles').select('*').eq('email', user.email).single()
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('email', user.email)
+    .single()
   if (!profile || !profile.is_active) {
-    return NextResponse.redirect(new URL('/login?reason=not_authorized', request.url))
+    return NextResponse.redirect(
+      new URL('/login?reason=not_authorized', request.url),
+    )
   }
 
   return response
@@ -42,6 +52,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|login|auth/callback|unauthorized|forbidden|not-found).*)',
+    '/((?!_next/static|_next/image|favicon.ico|login|auth/callback|unauthorized|forbidden|not-found).*)',
   ],
 }
