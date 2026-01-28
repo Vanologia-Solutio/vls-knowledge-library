@@ -34,7 +34,7 @@ export default function NotFoundPage() {
         </CardContent>
         <CardFooter className='flex justify-center'>
           <Button asChild>
-            <Link href='/dashboard'>Return to Dashboard</Link>
+            <Link href='/home/dashboard'>Return to Dashboard</Link>
           </Button>
         </CardFooter>
       </Card>
