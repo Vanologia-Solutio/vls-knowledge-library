@@ -16,11 +16,11 @@ class StorageService {
     amount: string
     issuedDate: string
     dueDate: string
+    remark: string
   }): Promise<
     ApiResponse<{
-      fullPath: string
-      id: string
       path: string
+      fileName: string
     }>
   > {
     const formData = new FormData()
@@ -31,6 +31,7 @@ class StorageService {
     formData.append('amount', payload.amount)
     formData.append('issuedDate', payload.issuedDate)
     formData.append('dueDate', payload.dueDate)
+    formData.append('remark', payload.remark)
     return await this.storageRepo.uploadDocument(formData)
   }
 }

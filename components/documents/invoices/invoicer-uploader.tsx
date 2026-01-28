@@ -42,6 +42,7 @@ export function InvoicerUploader() {
         amount: (form.amount as HTMLInputElement).value,
         issuedDate: (form.issuedDate as HTMLInputElement).value,
         dueDate: (form.dueDate as HTMLInputElement).value,
+        remark: (form.remark as HTMLTextAreaElement).value,
       }
 
       const res = await upload(payload)

@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     const issuedDate = formData.get('issuedDate') as string
     const dueDate = formData.get('dueDate') as string
     const remark = formData.get('remark') as string
-    
+
     if (!file || !type) {
       return NextResponse.json(generateErrorResponse('Invalid form data'))
     }

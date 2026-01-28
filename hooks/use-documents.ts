@@ -32,6 +32,7 @@ export const documentQueries = {
         amount: string
         issuedDate: string
         dueDate: string
+        remark: string
       }) => storageService.uploadDocument(payload),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: documentQueries.keys.list() })

@@ -12,9 +12,8 @@ export class StorageRepository {
 
   async uploadDocument(formData: FormData): Promise<
     ApiResponse<{
-      fullPath: string
-      id: string
       path: string
+      fileName: string
     }>
   > {
     const res = await fetch('/api/storage/upload', {
