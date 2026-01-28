@@ -2,10 +2,10 @@
 
 import { LoginForm } from "@/components/login-form"
 import { useSearchParams } from "next/navigation"
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import { toast } from "sonner"
 
-export default function Page() {
+function LoginContent() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -25,5 +25,13 @@ export default function Page() {
         <LoginForm />
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginContent />
+    </Suspense>
   )
 }
