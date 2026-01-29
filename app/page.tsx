@@ -55,13 +55,13 @@ function LoginContent() {
               </span>
               <TypeAnimation
                 sequence={[
-                  'Every Search Tells a Story.',
+                  'Your Personal Knowledge Vault.',
                   4000,
-                  'Intelligence. By Design.',
+                  'Secure. Organized. Accessible.',
                   4000,
-                  'Knowledge That Connects.',
+                  'All Your Documents, One Place.',
                   4000,
-                  'Find Today. Build Tomorrow.',
+                  'Built for Thinking, Backed by Cloud.',
                   4000,
                 ]}
                 wrapper='span'
