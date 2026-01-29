@@ -3,17 +3,15 @@ import {
   generateErrorResponse,
   generateSuccessResponse,
 } from '@/shared/helpers/api-response'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function PUT({
-  params,
-}: {
-  params: Promise<{ profileId: string }>
-}) {
+export async function PUT(
+  _: NextRequest,
+  { params }: { params: Promise<{ profileId: string }> },
+) {
   try {
     const supabase = await getSupabaseServerClient()
     const { profileId } = await params
-    console.log(profileId)
 
     const { data: existingFootprint } = await supabase
       .from('footprints')

@@ -12,7 +12,6 @@ export async function GET(
   try {
     const supabase = await getSupabaseServerClient()
     const { email } = await params
-    console.log(email)
 
     const { data, error } = await supabase
       .from('profiles')

@@ -36,13 +36,12 @@ function LoginContent() {
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000))
-      const result = await supabaseBrowser.auth.signInWithOAuth({
+      await supabaseBrowser.auth.signInWithOAuth({
         provider,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
       })
-      console.log(result)
     } finally {
       setLoading(false)
     }
