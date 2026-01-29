@@ -7,6 +7,9 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { toast } from 'sonner'
+import githubIcon from '@/assets/icons/github.webp'
+import googleIcon from '@/assets/icons/google.webp'
+import Image from 'next/image'
 
 function LoginContent() {
   const searchParams = useSearchParams()
@@ -28,17 +31,18 @@ function LoginContent() {
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleLoginWithGithub = async () => {
+  const handleLoginWithProvider = async (provider: 'github' | 'google') => {
     setLoading(true)
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000))
-      await supabaseBrowser.auth.signInWithOAuth({
-        provider: 'github',
+      const result = await supabaseBrowser.auth.signInWithOAuth({
+        provider,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
       })
+      console.log(result)
     } finally {
       setLoading(false)
     }
@@ -55,13 +59,13 @@ function LoginContent() {
               </span>
               <TypeAnimation
                 sequence={[
-                  'Your Personal Knowledge Vault.',
+                  'Personal Knowledge Vault.',
                   4000,
-                  'Secure. Organized. Accessible.',
+                  'Secure. Simple. Fast.',
                   4000,
-                  'All Your Documents, One Place.',
+                  'One Place. All Docs.',
                   4000,
-                  'Built for Thinking, Backed by Cloud.',
+                  'Think. Cloud-backed.',
                   4000,
                 ]}
                 wrapper='span'
@@ -71,15 +75,34 @@ function LoginContent() {
                 style={{ lineHeight: '1.25' }}
               />
             </h1>
-            <div>
+            <div className='flex items-center justify-center gap-4'>
               <Button
                 size='lg'
                 className='text-base bg-white text-black hover:bg-slate-200'
-                onClick={handleLoginWithGithub}
+                onClick={() => handleLoginWithProvider('github')}
                 disabled={loading}
               >
                 Sign in with GitHub
-                <Github className='size-6 mr-0.5' />
+                <Image
+                  src={githubIcon.src}
+                  alt='GitHub'
+                  width={24}
+                  height={24}
+                />
+              </Button>
+              <Button
+                size='lg'
+                className='text-base bg-white text-black hover:bg-slate-200'
+                onClick={() => handleLoginWithProvider('google')}
+                disabled={loading}
+              >
+                Sign in with Google
+                <Image
+                  src={googleIcon.src}
+                  alt='Google'
+                  width={24}
+                  height={24}
+                />
               </Button>
             </div>
           </div>

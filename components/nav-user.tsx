@@ -34,6 +34,7 @@ export function NavUser({
   const router = useRouter()
 
   const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' })
     await supabaseBrowser.auth.signOut({ scope: 'global' })
     router.push('/auth/callback')
   }

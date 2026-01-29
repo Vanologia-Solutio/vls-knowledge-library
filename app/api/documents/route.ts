@@ -3,12 +3,12 @@ import {
   generateErrorResponse,
   generatePaginatedResponse,
 } from '@/shared/helpers/api-response'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const supabase = await getSupabaseServerClient()
-    const { searchParams } = new URL(req.url)
+    const { searchParams } = req.nextUrl
 
     const page = Number(searchParams.get('page') ?? 1)
     const limit = Number(searchParams.get('limit') ?? 10)

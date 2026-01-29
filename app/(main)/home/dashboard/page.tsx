@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   return (
     <div className='flex flex-col items-center justify-center h-full p-4'>
       <h1 className='text-5xl font-bold'>
-        Welcome Back, <EntityTypewriter user={user} />
+        Welcome, <EntityTypewriter user={user} />
       </h1>
       <p className='mt-2 text-lg'>
         Glad to see you back! Explore your documents and manage your account.

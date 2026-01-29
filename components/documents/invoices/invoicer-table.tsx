@@ -1,7 +1,7 @@
 'use client'
 
 import { PaginatedDataTable } from '@/components/paginated-table'
-import { documentQueries } from '@/hooks/use-documents'
+import { documentQueries } from '@/hooks/use-document'
 import { formatCurrency } from '@/lib/utils'
 import { UploadDocument } from '@/shared/entities/document'
 import { ColumnDef, PaginationState } from '@tanstack/react-table'
@@ -62,6 +62,7 @@ export function InvoiceTable() {
       header: 'Action',
       accessorKey: 'action',
       enableSorting: false,
+      size: 48,
       cell: ({ row }) => (
         <DocumentViewer
           path={row.original.file_path}

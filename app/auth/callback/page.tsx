@@ -11,11 +11,45 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     const handleAuth = async () => {
       const { data, error } = await supabaseBrowser.auth.getSession()
-
       if (error || !data.session) {
         router.replace('/')
         return
       }
+
+      const user = data.session.user
+
+      try {
+        const { data: profile } = await supabaseBrowser
+          .from('profiles')
+          .select('*')
+          .eq('email', user.email)
+          .single()
+
+        if (profile) {
+          const { data: footprint } = await supabaseBrowser
+            .from('footprints')
+            .select('*')
+            .eq('profile_id', profile.id)
+            .single()
+
+          if (footprint) {
+            await supabaseBrowser
+              .from('footprints')
+              .update({
+                login_count: footprint.login_count + 1,
+              })
+              .eq('id', footprint.id)
+          } else {
+            await supabaseBrowser.from('footprints').insert({
+              profile_id: profile.id,
+            })
+          }
+        }
+      } catch {
+        console.error('Error updating login count / footprint')
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 30000))
 
       router.replace('/home/dashboard')
     }

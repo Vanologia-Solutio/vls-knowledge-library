@@ -3,7 +3,7 @@ import { storageService } from '@/services/storage-service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { PaginationState } from '@tanstack/react-table'
 
-export const DOCUMENT_QUERY_KEYS = {
+const DOCUMENT_QUERY_KEYS = {
   all: ['documents'] as const,
   list: (params: PaginationState = { pageIndex: 0, pageSize: 10 }) =>
     [
@@ -42,7 +42,7 @@ export const documentQueries = {
         remark: string
       }) => storageService.uploadDocument(payload),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: DOCUMENT_QUERY_KEYS.all })
+        queryClient.invalidateQueries({ queryKey: documentQueries.keys.all })
       },
     })
   },

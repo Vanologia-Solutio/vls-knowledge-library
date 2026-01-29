@@ -16,7 +16,7 @@ import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { documentQueries } from '@/hooks/use-documents'
+import { documentQueries } from '@/hooks/use-document'
 import { Loader2, UploadCloud } from 'lucide-react'
 import { ChangeEvent, SubmitEvent, useState } from 'react'
 import { toast } from 'sonner'
@@ -32,6 +32,11 @@ export function InvoiceUploader() {
 
     const form = e.target
     const file = form.attachment.files[0]
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('File size must be less than 5MB')
+      return
+    }
 
     try {
       const payload = {

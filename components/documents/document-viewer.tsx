@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { documentQueries } from '@/hooks/use-documents'
+import { documentQueries } from '@/hooks/use-document'
 import { Eye, Loader2 } from 'lucide-react'
 
 type DocumentViewerProps = {
