@@ -49,8 +49,6 @@ export default function AuthCallbackPage() {
         console.error('Error updating login count / footprint')
       }
 
-      await new Promise(resolve => setTimeout(resolve, 30000))
-
       router.replace('/home/dashboard')
     }
 
