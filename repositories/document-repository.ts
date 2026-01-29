@@ -1,9 +1,14 @@
 import { UploadDocument } from '@/shared/entities/document'
-import { ApiResponse } from '@/shared/helpers/api-response'
+import { PaginatedResponse } from '@/shared/helpers/api-response'
+import { PaginationState } from '@tanstack/react-table'
 
 export class DocumentRepository {
-  async getDocuments(): Promise<ApiResponse<UploadDocument[]>> {
-    const res = await fetch('/api/documents')
+  async getDocuments(
+    params: PaginationState,
+  ): Promise<PaginatedResponse<UploadDocument>> {
+    const res = await fetch(
+      `/api/documents?page=${params.pageIndex + 1}&limit=${params.pageSize}`,
+    )
     if (!res.ok) {
       throw new Error('Failed to get documents')
     }

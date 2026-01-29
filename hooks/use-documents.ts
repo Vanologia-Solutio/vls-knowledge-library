@@ -1,10 +1,17 @@
 import { documentService } from '@/services/document-service'
 import { storageService } from '@/services/storage-service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { PaginationState } from '@tanstack/react-table'
 
 export const DOCUMENT_QUERY_KEYS = {
   all: ['documents'] as const,
-  list: () => [...DOCUMENT_QUERY_KEYS.all, 'list'] as const,
+  list: (params: PaginationState = { pageIndex: 0, pageSize: 10 }) =>
+    [
+      ...DOCUMENT_QUERY_KEYS.all,
+      'list',
+      params.pageIndex,
+      params.pageSize,
+    ] as const,
   preview: (path: string) =>
     [...DOCUMENT_QUERY_KEYS.all, 'preview', path] as const,
   upload: () => [...DOCUMENT_QUERY_KEYS.all, 'upload'] as const,
@@ -13,11 +20,11 @@ export const DOCUMENT_QUERY_KEYS = {
 export const documentQueries = {
   keys: DOCUMENT_QUERY_KEYS,
 
-  useList: () =>
+  useList: (params: PaginationState = { pageIndex: 0, pageSize: 10 }) =>
     useQuery({
-      queryKey: documentQueries.keys.list(),
-      queryFn: () => documentService.getDocuments(),
-      placeholderData: prev => prev,
+      queryKey: documentQueries.keys.list(params),
+      queryFn: () => documentService.getDocuments(params),
+      enabled: params.pageIndex >= 0 && params.pageSize > 0,
     }),
 
   useUpload: () => {
@@ -35,7 +42,7 @@ export const documentQueries = {
         remark: string
       }) => storageService.uploadDocument(payload),
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: documentQueries.keys.list() })
+        queryClient.invalidateQueries({ queryKey: DOCUMENT_QUERY_KEYS.all })
       },
     })
   },

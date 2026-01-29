@@ -21,7 +21,7 @@ import { Loader2, UploadCloud } from 'lucide-react'
 import { ChangeEvent, SubmitEvent, useState } from 'react'
 import { toast } from 'sonner'
 
-export function InvoicerUploader() {
+export function InvoiceUploader() {
   const [open, setOpen] = useState<boolean>(false)
   const [fileUrl, setFileUrl] = useState<string | null>(null)
 
@@ -67,23 +67,29 @@ export function InvoicerUploader() {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={open => {
+        if (isPending) return
+        setOpen(open)
+      }}
+    >
       <DialogTrigger asChild>
         <Button>
           <UploadCloud className='size-4' />
           Upload Invoice
         </Button>
       </DialogTrigger>
-      <DialogContent className='min-w-3xl'>
+      <DialogContent className='min-w-3xl overflow-y-auto'>
         <DialogHeader>
-          <DialogTitle>Invoicer Uploader</DialogTitle>
+          <DialogTitle>Invoice Uploader</DialogTitle>
           <DialogDescription>
             Upload your invoice documents here
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleUpload}>
           <FieldGroup>
-            <div className='grid grid-cols-2 gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
               <Field>
                 <FieldLabel>Invoice Number</FieldLabel>
                 <Input
@@ -115,7 +121,7 @@ export function InvoicerUploader() {
                 </div>
               </Field>
             </div>
-            <div className='grid grid-cols-2 gap-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
               <Field>
                 <FieldLabel>Client Name</FieldLabel>
                 <Input
@@ -136,7 +142,7 @@ export function InvoicerUploader() {
                 />
               </Field>
             </div>
-            <div className='grid grid-cols-2 gap-6'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
               <Field>
                 <FieldLabel>Issued Date</FieldLabel>
                 <Input

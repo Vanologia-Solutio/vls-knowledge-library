@@ -1,3 +1,4 @@
+import { EntityTypewriter } from '@/components/home/dashboard/entity-typewriter'
 import { getSupabaseServerClient } from '@/lib/supabase/server'
 
 export default async function DashboardPage() {
@@ -9,8 +10,7 @@ export default async function DashboardPage() {
   return (
     <div className='flex flex-col items-center justify-center h-full p-4'>
       <h1 className='text-5xl font-bold'>
-        Welcome Back,{' '}
-        <span className='text-red-700'>{user?.user_metadata?.full_name}</span>!
+        Welcome Back, <EntityTypewriter user={user} />
       </h1>
       <p className='mt-2 text-lg'>
         Glad to see you back! Explore your documents and manage your account.

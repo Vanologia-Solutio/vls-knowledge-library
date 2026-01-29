@@ -12,3 +12,15 @@ export function getInitials(name: string): string {
   const last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : ''
   return (first + last).toUpperCase()
 }
+
+export function formatCurrency(
+  amount: number,
+  locale: string = 'id-ID',
+  currency: string = 'IDR',
+): string {
+  if (isNaN(amount)) return '-'
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(amount)
+}

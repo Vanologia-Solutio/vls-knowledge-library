@@ -13,7 +13,7 @@ export default function AuthCallbackPage() {
       const { data, error } = await supabaseBrowser.auth.getSession()
 
       if (error || !data.session) {
-        router.replace('/login')
+        router.replace('/')
         return
       }
 
@@ -25,7 +25,7 @@ export default function AuthCallbackPage() {
 
   return (
     <div className='flex flex-col items-center justify-center h-screen gap-4'>
-      <Loader2 className='size-8 animate-spin' />
+      <Loader2 className='size-10 animate-spin' />
       <p>Verifying access...</p>
     </div>
   )

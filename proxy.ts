@@ -5,6 +5,10 @@ import { Env } from './shared/constants/environments'
 export async function proxy(request: NextRequest) {
   const response = NextResponse.next()
 
+  if (request.nextUrl.pathname === '/') {
+    return response
+  }
+
   const supabase = createServerClient(
     Env.SUPABASE_URL,
     Env.SUPABASE_PUBLISHABLE_DEFAULT_KEY,
@@ -26,14 +30,14 @@ export async function proxy(request: NextRequest) {
     data: { user },
     error,
   } = await supabase.auth.getUser()
+
   if (!user) {
     if (error?.message.includes('expired')) {
       return NextResponse.redirect(
-        new URL('/login?reason=session_expired', request.url),
+        new URL('/?reason=session_expired', request.url),
       )
-    } else {
-      return NextResponse.redirect(new URL('/login', request.url))
     }
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   const { data: profile } = await supabase
@@ -41,9 +45,10 @@ export async function proxy(request: NextRequest) {
     .select('*')
     .eq('email', user.email)
     .single()
+
   if (!profile || !profile.is_active) {
     return NextResponse.redirect(
-      new URL('/login?reason=not_authorized', request.url),
+      new URL('/?reason=not_authorized', request.url),
     )
   }
 
@@ -52,6 +57,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|login|auth/callback|unauthorized|forbidden|not-found).*)',
+    '/((?!^/$|_next/static|_next/image|favicon.ico|auth/callback|unauthorized|forbidden|not-found).*)',
   ],
 }

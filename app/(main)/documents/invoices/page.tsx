@@ -1,13 +1,8 @@
-'use client'
-
-import { InvoicerTable } from '@/components/documents/invoices/invoicer-table'
-import { InvoicerUploader } from '@/components/documents/invoices/invoicer-uploader'
+import { InvoiceUploader } from '@/components/documents/invoices/invoice-uploader'
+import { InvoiceTable } from '@/components/documents/invoices/invoicer-table'
 import { Separator } from '@/components/ui/separator'
-import { documentQueries } from '@/hooks/use-documents'
 
 export default function InvoicesPage() {
-  const { data } = documentQueries.useList()
-
   return (
     <main>
       <div className='flex justify-between items-center'>
@@ -17,10 +12,10 @@ export default function InvoicesPage() {
             Upload, organize, and manage your invoice documents.
           </p>
         </div>
-        <InvoicerUploader />
+        <InvoiceUploader />
       </div>
       <Separator className='my-6' />
-      <InvoicerTable data={data?.data ?? []} />
+      <InvoiceTable />
     </main>
   )
 }

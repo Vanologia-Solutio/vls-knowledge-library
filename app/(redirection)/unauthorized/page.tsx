@@ -34,7 +34,7 @@ export default function UnauthorizedPage() {
         </CardContent>
         <CardFooter className='flex justify-center'>
           <Button asChild>
-            <Link href='/login'>Go to Login</Link>
+            <Link href='/'>Go to Login</Link>
           </Button>
         </CardFooter>
       </Card>
