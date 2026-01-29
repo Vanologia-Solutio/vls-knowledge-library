@@ -48,7 +48,7 @@ function LoginContent() {
     <div className='min-h-screen bg-linear-to-br from-black via-gray-900 to-black text-gray-900 overflow-x-hidden'>
       <div className='relative min-h-screen flex flex-col'>
         <main className='relative flex-1 flex flex-col'>
-          <div className='text-center pt-54 pb-2'>
+          <div className='text-center my-auto'>
             <h1 className='flex flex-col items-center mb-14'>
               <span className='text-3xl sm:text-4xl tracking-tight font-bold mb-7 bg-linear-to-br from-slate-300 via-white to-slate-100 bg-clip-text text-transparent'>
                 Vanologia Solutio Knowledge Library
