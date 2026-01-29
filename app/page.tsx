@@ -1,15 +1,14 @@
 'use client'
 
+import githubIcon from '@/assets/icons/github.webp'
+import googleIcon from '@/assets/icons/google.webp'
 import { Button } from '@/components/ui/button'
 import { supabaseBrowser } from '@/lib/supabase/browser'
-import { Github } from 'lucide-react'
+import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { toast } from 'sonner'
-import githubIcon from '@/assets/icons/github.webp'
-import googleIcon from '@/assets/icons/google.webp'
-import Image from 'next/image'
 
 function LoginContent() {
   const searchParams = useSearchParams()
