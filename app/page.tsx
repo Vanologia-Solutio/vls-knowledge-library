@@ -35,7 +35,6 @@ function LoginContent() {
     setLoading(true)
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
       await supabaseBrowser.auth.signInWithOAuth({
         provider,
         options: {
