@@ -1,10 +1,20 @@
-import { BookSearch, Home } from 'lucide-react'
+import { IconName } from '../utils/icons'
 
-export const routes = {
+export const routes: {
+  navMain: {
+    title: string
+    icon?: IconName
+    isActive: boolean
+    items: {
+      title: string
+      url: string
+    }[]
+  }[]
+} = {
   navMain: [
     {
       title: 'Home',
-      icon: Home,
+      icon: 'Home',
       isActive: true,
       items: [
         {
@@ -15,7 +25,7 @@ export const routes = {
     },
     {
       title: 'Documents',
-      icon: BookSearch,
+      icon: 'BookSearch',
       isActive: true,
       items: [
         {
